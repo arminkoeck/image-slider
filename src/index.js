@@ -4,7 +4,6 @@ let slideNumber = 0;
 let currentPosition = 0;
 const slider = document.querySelector(".image-slider > div");
 
-
 const slides = document.querySelectorAll(".slide");
 slides.forEach((slide, index) => {
   slide.setAttribute("data-index", index);
@@ -33,8 +32,6 @@ dots.forEach((dot) => {
   });
 });
 
-
-
 const imageSlider = document.querySelector(".image-slider");
 const imageSliderWidth = parseFloat(
   window.getComputedStyle(imageSlider).getPropertyValue("width")
@@ -54,36 +51,35 @@ prevButton.addEventListener("click", () => {
   setActiveDot();
 });
 
-function setActiveDot () {
-    dots.forEach((dot) => {
-        dot.classList.remove("active-dot");
-        const dotIndex = dot.dataset.index;
-        if (Number(dotIndex) === currentPosition) {
-            dot.classList.add("active-dot");
-        };
-    });
+function setActiveDot() {
+  dots.forEach((dot) => {
+    dot.classList.remove("active-dot");
+    const dotIndex = dot.dataset.index;
+    if (Number(dotIndex) === currentPosition) {
+      dot.classList.add("active-dot");
+    }
+  });
 }
 
-
 document.addEventListener("click", () => {
-    console.log(currentPosition);
+  console.log(currentPosition);
 });
 
 console.log(slides);
 
-function showNextSlide () {
-    currentPosition += 1;
-    if (currentPosition < slideNumber) {
-      let rightInset = `${currentPosition * imageSliderWidth}px`;
-      slider.style.right = rightInset;
-    } else {
-      currentPosition = 0;
-      slider.style.right = `${currentPosition * imageSliderWidth}px`
-    }
+function showNextSlide() {
+  currentPosition += 1;
+  if (currentPosition < slideNumber) {
+    let rightInset = `${currentPosition * imageSliderWidth}px`;
+    slider.style.right = rightInset;
+  } else {
+    currentPosition = 0;
+    slider.style.right = `${currentPosition * imageSliderWidth}px`;
+  }
 }
 
-function showPrevSlide () {
-    currentPosition -= 1;
+function showPrevSlide() {
+  currentPosition -= 1;
   if (currentPosition >= 0) {
     let rightInset = `${currentPosition * imageSliderWidth}px`;
     slider.style.right = rightInset;
@@ -91,15 +87,15 @@ function showPrevSlide () {
     currentPosition = slideNumber - 1;
     let rightInset = `${currentPosition * imageSliderWidth}px`;
     slider.style.right = rightInset;
-  };
+  }
 }
 
-function autoShowNextSlide () {
-    setTimeout(() => {
-        showNextSlide();
-        autoShowNextSlide();
-        setActiveDot();
-    }, "5000");
+function autoShowNextSlide() {
+  setTimeout(() => {
+    showNextSlide();
+    autoShowNextSlide();
+    setActiveDot();
+  }, "5000");
 }
 
 autoShowNextSlide();
